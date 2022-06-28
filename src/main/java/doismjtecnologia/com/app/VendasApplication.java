@@ -14,6 +14,6 @@ public class VendasApplication {
 
     @GetMapping("/hello")
     public String helloWorld(){
-        return "Hello World this my first app using String Boot.";
+        return "Hello World this my first app using String Boot, I will change this text to make a test.";
     }
 }
