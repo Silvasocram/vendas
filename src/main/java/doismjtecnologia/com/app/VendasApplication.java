@@ -1,5 +1,8 @@
 package doismjtecnologia.com.app;
 
+import doismjtecnologia.com.app.configuration.MyConfiguration;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,12 +11,23 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 @RestController
 public class VendasApplication {
+
+    @Autowired
+    @Qualifier("applicationName")
+    private String applicationName;
+
+    @Autowired
+    @Qualifier("outraString")
+    private String outraString;
+
     public static void main(String[] args) {
         SpringApplication.run(VendasApplication.class, args);
     }
 
     @GetMapping("/hello")
     public String helloWorld(){
-        return "Hello World this my first app using String Boot, I will change this text to make a test.";
+        return applicationName
+                .concat(" ")
+                .concat(outraString);
     }
 }
