@@ -1,8 +1,8 @@
 package doismjtecnologia.com.app;
 
-import doismjtecnologia.com.app.configuration.MyConfiguration;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +15,9 @@ public class VendasApplication {
     @Autowired
     @Qualifier("applicationName")
     private String applicationName;
+
+    @Value("${application.name}")
+    private String boasVindas;
 
     @Autowired
     @Qualifier("outraString")
@@ -29,5 +32,10 @@ public class VendasApplication {
         return applicationName
                 .concat(" ")
                 .concat(outraString);
+    }
+
+    @GetMapping("/ola")
+    public String ola(){
+        return boasVindas;
     }
 }
