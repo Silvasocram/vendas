@@ -12,30 +12,12 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class VendasApplication {
 
-    @Autowired
-    @Qualifier("applicationName")
-    private String applicationName;
-
-    @Value("${application.name}")
-    private String boasVindas;
-
-    @Autowired
-    @Qualifier("outraString")
-    private String outraString;
-
     public static void main(String[] args) {
         SpringApplication.run(VendasApplication.class, args);
     }
 
     @GetMapping("/hello")
     public String helloWorld(){
-        return applicationName
-                .concat(" ")
-                .concat(outraString);
-    }
-
-    @GetMapping("/ola")
-    public String ola(){
-        return boasVindas;
+        return "Hello";
     }
 }
