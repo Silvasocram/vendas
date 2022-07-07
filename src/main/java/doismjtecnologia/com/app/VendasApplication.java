@@ -23,11 +23,36 @@ public class VendasApplication {
     public CommandLineRunner init (@Autowired ClienteRepository clienteRepository){
         return args -> {
 
+            System.out.println("## Inserindo clientes ##");
             clienteRepository.salvar(new Cliente("Marcos Silva"));
             clienteRepository.salvar(new Cliente("Janaíra Capistrano"));
+            clienteRepository.salvar(new Cliente("Mayara Capistrano"));
 
             List<Cliente> clientes = clienteRepository.obterTodos();
             clientes.forEach(System.out::println);
+
+            System.out.println(("## Atualizando clientes ##"));
+            clientes.forEach(c -> {
+                c.setNome(c.getNome().concat(" - Atualizado"));
+                clienteRepository.alterar(c);
+            });
+            List<Cliente> clientesAtualizados = clienteRepository.obterTodos();
+            clientesAtualizados.forEach(System.out::println);
+
+            System.out.println(("## Buscar por nome Caps ##"));
+            List<Cliente> buscarPorNome = clienteRepository.obterPorNome("Capis");
+            buscarPorNome.forEach(System.out::println);
+
+            System.out.println(("## Buscar por nome Ma ##"));
+            List<Cliente> buscarPorNomeMa = clienteRepository.obterPorNome("Ma");
+            buscarPorNomeMa.forEach(System.out::println);
+
+            System.out.println("Excluir cliente com ID = 1");
+            clienteRepository.excluir(1);
+            System.out.println("Listar todos os clientes para ver se realmente foi exluído");
+            List<Cliente> clientesNaoExcluidos = clienteRepository.obterTodos();
+            clientesNaoExcluidos.forEach(System.out::println);
+
         };
     }
 }
