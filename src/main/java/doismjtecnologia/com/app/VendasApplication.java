@@ -31,7 +31,7 @@ public class VendasApplication {
             List<Cliente> clientes = clienteRepository.obterTodos();
             clientes.forEach(System.out::println);
 
-            System.out.println(("## Atualizando clientes ##"));
+            /*System.out.println(("## Atualizando clientes ##"));
             clientes.forEach(c -> {
                 c.setNome(c.getNome().concat(" - Atualizado"));
                 clienteRepository.alterar(c);
@@ -51,7 +51,7 @@ public class VendasApplication {
             clienteRepository.excluir(1);
             System.out.println("Listar todos os clientes para ver se realmente foi exluído");
             List<Cliente> clientesNaoExcluidos = clienteRepository.obterTodos();
-            clientesNaoExcluidos.forEach(System.out::println);
+            clientesNaoExcluidos.forEach(System.out::println);*/
 
         };
     }

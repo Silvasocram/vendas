@@ -5,26 +5,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
 @Repository
-public class ClienteRepository {
+public class ClienteRepository{
 
-    private static String INSERT = "INSERT INTO CLIENTE (nome) VALUES (?)";
+    //private static String INSERT = "INSERT INTO CLIENTE (nome) VALUES (?)";
     private static String UPDATE = "UPDATE CLIENTE SET nome = (?) WHERE id = (?)";
     private static String SELECT_ALL = "SELECT * FROM CLIENTE";
 
     private static String DELETAR = "DELETE FROM CLIENTE WHERE id = ?";
 
     @Autowired
+    private EntityManager entityManager;
+
+    @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    @Transactional
     public Cliente salvar(Cliente cliente){
-        jdbcTemplate.update(INSERT, new Object[]{
-                cliente.getNome()});
+        entityManager.persist(cliente);
         return cliente;
     }
 
