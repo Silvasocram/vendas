@@ -24,33 +24,33 @@ public class VendasApplication {
         return args -> {
 
             System.out.println("## Inserindo clientes ##");
-            clienteRepository.salvar(new Cliente("Marcos Silva"));
-            clienteRepository.salvar(new Cliente("Janaíra Capistrano"));
-            clienteRepository.salvar(new Cliente("Mayara Capistrano"));
+            clienteRepository.save(new Cliente("Marcos Silva"));
+            clienteRepository.save(new Cliente("Janaíra Capistrano"));
+            clienteRepository.save(new Cliente("Mayara Capistrano"));
 
-            List<Cliente> clientes = clienteRepository.obterTodos();
+            List<Cliente> clientes = clienteRepository.findAll();
             clientes.forEach(System.out::println);
 
             System.out.println(("## Atualizando clientes ##"));
             clientes.forEach(c -> {
                 c.setNome(c.getNome().concat(" - Atualizado"));
-                clienteRepository.alterar(c);
+                clienteRepository.save(c);
             });
-            List<Cliente> clientesAtualizados = clienteRepository.obterTodos();
+            List<Cliente> clientesAtualizados = clienteRepository.findAll();
             clientesAtualizados.forEach(System.out::println);
 
             System.out.println(("## Buscar por nome Caps ##"));
-            List<Cliente> buscarPorNome = clienteRepository.obterPorNome("Capis");
+            List<Cliente> buscarPorNome = clienteRepository.findByNomeLike("Capis");
             buscarPorNome.forEach(System.out::println);
 
             System.out.println(("## Buscar por nome Ma ##"));
-            List<Cliente> buscarPorNomeMa = clienteRepository.obterPorNome("Ma");
+            List<Cliente> buscarPorNomeMa = clienteRepository.findByNomeLike("Ma");
             buscarPorNomeMa.forEach(System.out::println);
 
             System.out.println("Excluir cliente com ID = 1");
-            clienteRepository.excluir(1);
+            clienteRepository.deleteById(1);
             System.out.println("Listar todos os clientes para ver se realmente foi exluído");
-            List<Cliente> clientesNaoExcluidos = clienteRepository.obterTodos();
+            List<Cliente> clientesNaoExcluidos = clienteRepository.findAll();
             clientesNaoExcluidos.forEach(System.out::println);
 
         };
