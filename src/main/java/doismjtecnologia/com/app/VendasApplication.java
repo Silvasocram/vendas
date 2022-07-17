@@ -52,9 +52,17 @@ public class VendasApplication {
             boolean existe = clienteRepository.existsByNome("Marcos Silva - Atualizado");
             System.out.println("Existe um cliente com nome Marcos Silva - Atualizado? " + existe);
 
+            System.out.println(("## Buscar por nome Caps com @Query ##"));
+            List<Cliente> buscarPorNomeArrobaQuery = clienteRepository.buscarPorNome("%Capis%");
+            buscarPorNomeArrobaQuery.forEach(System.out::println);
+
+            System.out.println(("## Buscar por nome Ma com SQL Nativo ##"));
+            List<Cliente> buscarPorNomeSQlNativo = clienteRepository.buscarPorNomeSQLNativo("Ma");
+            buscarPorNomeSQlNativo.forEach(System.out::println);
+
             System.out.println("Excluir cliente com ID = 1");
             clienteRepository.deleteById(1);
-            System.out.println("Listar todos os clientes para ver se realmente foi exluído");
+            System.out.println("Listar todos os clientes para ver se realmente foi excluído o ID = 1");
             List<Cliente> clientesNaoExcluidos = clienteRepository.findAll();
             clientesNaoExcluidos.forEach(System.out::println);
 
