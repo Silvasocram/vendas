@@ -40,18 +40,25 @@ public class VendasApplication {
             clientesAtualizados.forEach(System.out::println);
 
             System.out.println(("## Buscar por nome Caps ##"));
-            List<Cliente> buscarPorNome = clienteRepository.findByNomeLike("Capis");
+            List<Cliente> buscarPorNome = clienteRepository.findByNomeLike("%Capis%");
             buscarPorNome.forEach(System.out::println);
 
             System.out.println(("## Buscar por nome Ma ##"));
-            List<Cliente> buscarPorNomeMa = clienteRepository.findByNomeLike("Ma");
+            List<Cliente> buscarPorNomeMa = clienteRepository.findByNomeLike("%Ma%");
             buscarPorNomeMa.forEach(System.out::println);
+
+
+            System.out.println("Verifica se existe um cliente com nome Marcos Silva - Atualizado");
+            boolean existe = clienteRepository.existsByNome("Marcos Silva - Atualizado");
+            System.out.println("Existe um cliente com nome Marcos Silva - Atualizado? " + existe);
 
             System.out.println("Excluir cliente com ID = 1");
             clienteRepository.deleteById(1);
             System.out.println("Listar todos os clientes para ver se realmente foi exluído");
             List<Cliente> clientesNaoExcluidos = clienteRepository.findAll();
             clientesNaoExcluidos.forEach(System.out::println);
+
+
 
         };
     }
