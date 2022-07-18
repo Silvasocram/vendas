@@ -66,8 +66,6 @@ public class VendasApplication {
             List<Cliente> clientesNaoExcluidos = clienteRepository.findAll();
             clientesNaoExcluidos.forEach(System.out::println);
 
-
-
         };
     }
 }
