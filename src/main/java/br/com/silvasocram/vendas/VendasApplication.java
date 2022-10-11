@@ -24,28 +24,14 @@ public class VendasApplication implements CommandLineRunner{
 		SpringApplication.run(VendasApplication.class, args);
 	}
 
-/*	public CommandLineRunner executar(){
-		System.out.println("PASSEI AQUI");
-		return args->{
-
-			Cliente cliente = new Cliente();
-			cliente.setNome("MARCOS");
-			clienteRepository.save(cliente);
-
-		};
-	}*/
-
-	@GetMapping("/hellow")
-	public String hellow(){
-		return message;
-	}
-
 	@Override
 	public void run(String... args) throws Exception {
 
-		Cliente cliente = new Cliente();
-		cliente.setNome("MARCOS");
-		clienteRepository.save(cliente);
+		var  marcos = Cliente.builder()
+				.nome("Marcos M. Silva")
+				.build();
+
+		clienteRepository.save(marcos);
 
 	}
 }
