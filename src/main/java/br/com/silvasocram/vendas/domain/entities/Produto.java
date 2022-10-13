@@ -6,23 +6,25 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
+import java.math.BigDecimal;
 
-@Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
+@Data
 @Builder
 @Entity
-@Table(name = "CLIENTE")
-public class Cliente {
+@Table(name = "PRODUTO")
+public class Produto {
+
     @Id
-    @Column
+    @Column(name = "ID")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "nome", length = 100)
-    private String nome;
+    @Column(name = "DESCRICAO")
+    private String descricao;
 
-    @OneToMany( fetch = FetchType.EAGER, mappedBy = "cliente")
-    private List<Pedido> pedidos;
+    @Column(name = "PRECO_UNITARIO")
+    private BigDecimal preco;
+
 }
