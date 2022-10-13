@@ -63,9 +63,9 @@ public class VendasApplication implements CommandLineRunner{
 
 		pedidoRepository.saveAll(pedidos);
 
-		var pedidoCliente = clienteRepository.findById(1L);
+		//var pedidoCliente = clienteRepository.findById(1L);
 
-		if(pedidoCliente.isPresent()){
+		/*if(pedidoCliente.isPresent()){
 			var orders = pedidoCliente.get();
 			for (Pedido order:orders.getPedidos()
 				 ) {
@@ -74,6 +74,11 @@ public class VendasApplication implements CommandLineRunner{
 				System.out.println(order.getTotal());
 			}
 
-		}
+		}*/
+
+		Cliente cli = clienteRepository.findClienteFetchPedidos(marcos.getId());
+		System.out.println(cli);
+		System.out.println("Detalhes do pedido ");
+		cli.getPedidos().forEach(System.out::println);
 	}
 }

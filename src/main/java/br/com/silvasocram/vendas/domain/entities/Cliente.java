@@ -23,6 +23,15 @@ public class Cliente {
     @Column(name = "nome", length = 100)
     private String nome;
 
-    @OneToMany( fetch = FetchType.EAGER, mappedBy = "cliente")
+    @OneToMany( mappedBy = "cliente")
     private List<Pedido> pedidos;
+
+    @Override
+    public String toString() {
+        return "Cliente{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", pedidos=" + pedidos +
+                '}';
+    }
 }
