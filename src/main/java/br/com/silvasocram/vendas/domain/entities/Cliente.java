@@ -1,5 +1,6 @@
 package br.com.silvasocram.vendas.domain.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -23,6 +24,7 @@ public class Cliente {
     @Column(name = "nome", length = 100)
     private String nome;
 
+    @JsonIgnore
     @OneToMany( mappedBy = "cliente")
     private List<Pedido> pedidos;
 
