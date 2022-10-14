@@ -19,8 +19,22 @@ import java.util.Optional;
 import java.util.Set;
 
 @SpringBootApplication
-public class VendasApplication {
+public class VendasApplication  implements CommandLineRunner{
+	private ClienteRepository clienteRepository;
+
+	public VendasApplication(ClienteRepository clienteRepository) {
+		this.clienteRepository = clienteRepository;
+	}
+
 	public static void main(String[] args) {
 		SpringApplication.run(VendasApplication.class, args);
+	}
+
+	@Override
+	public void run(String... args) throws Exception {
+		Cliente marcos = Cliente.builder()
+				.nome("Marcos")
+				.build();
+		clienteRepository.save(marcos);
 	}
 }
