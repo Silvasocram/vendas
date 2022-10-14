@@ -2,11 +2,7 @@ package br.com.silvasocram.vendas.rest.controller;
 
 import br.com.silvasocram.vendas.domain.entities.Cliente;
 import br.com.silvasocram.vendas.domain.entities.repository.ClienteRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
@@ -29,5 +25,10 @@ public class ClienteController {
         }
 
         return null;
+    }
+
+    @PostMapping
+    public void save(@RequestBody Cliente cliente){
+        clienteRepository.save(cliente);
     }
 }
