@@ -5,6 +5,7 @@ import br.com.silvasocram.vendas.domain.entities.repository.ClienteRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -51,5 +52,10 @@ public class ClienteController {
                     clienteRepository.save(cliente);
                     return cliente;
                 }).orElseGet(() -> Cliente.builder().build());
+    }
+
+    @GetMapping
+    public List<Cliente> getClientes(){
+        return clienteRepository.findAll();
     }
 }
