@@ -2,6 +2,7 @@ package br.com.silvasocram.vendas.rest.controller;
 
 import br.com.silvasocram.vendas.domain.entities.Cliente;
 import br.com.silvasocram.vendas.domain.entities.repository.ClienteRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -39,5 +40,16 @@ public class ClienteController {
         if(cliente.isPresent()){
             clienteRepository.delete(cliente.get());
         }
+    }
+
+    @PutMapping("/{id}")
+    public Cliente update(@PathVariable Long id,
+                          @RequestBody Cliente cliente){
+        return clienteRepository.findById(id)
+                .map(clienteExistente -> {
+                    cliente.setId(clienteExistente.getId());
+                    clienteRepository.save(cliente);
+                    return cliente;
+                }).orElseGet(() -> Cliente.builder().build());
     }
 }
