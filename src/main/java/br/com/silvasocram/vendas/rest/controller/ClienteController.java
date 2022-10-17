@@ -2,6 +2,8 @@ package br.com.silvasocram.vendas.rest.controller;
 
 import br.com.silvasocram.vendas.domain.entities.Cliente;
 import br.com.silvasocram.vendas.domain.entities.repository.ClienteRepository;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -55,7 +57,15 @@ public class ClienteController {
     }
 
     @GetMapping
-    public List<Cliente> getClientes(){
-        return clienteRepository.findAll();
+    public List<Cliente> getClientesFiltrando(Cliente filtro){
+
+        ExampleMatcher exampleMatcher = ExampleMatcher
+                .matching()
+                .withIgnoreCase()
+                .withStringMatcher(ExampleMatcher.StringMatcher.CONTAINING);
+
+        Example example = Example.of(filtro, exampleMatcher);
+
+        return clienteRepository.findAll(example);
     }
 }
