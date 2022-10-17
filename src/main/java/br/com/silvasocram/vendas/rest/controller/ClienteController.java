@@ -4,11 +4,11 @@ import br.com.silvasocram.vendas.domain.entities.Cliente;
 import br.com.silvasocram.vendas.domain.entities.repository.ClienteRepository;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/clientes")
@@ -22,38 +22,38 @@ public class ClienteController {
 
     @GetMapping("/{id}")
     public Cliente getClienteById(@PathVariable Long id){
-        Optional<Cliente> cliente = clienteRepository.findById(id);
-
-        if(cliente.isPresent()){
-            return cliente.get();
-        }
-
-        return null;
+        return clienteRepository.findById(id)
+                        .orElseThrow( () -> new ResponseStatusException(HttpStatus.NOT_FOUND,
+                                "Cliente não encontrado"));
     }
 
     @PostMapping
+    @ResponseStatus(HttpStatus.CREATED)
     public Cliente save(@RequestBody Cliente cliente){
         return clienteRepository.save(cliente);
     }
 
     @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void delete(@PathVariable Long id){
-        Optional<Cliente> cliente = clienteRepository.findById(id);
-
-        if(cliente.isPresent()){
-            clienteRepository.delete(cliente.get());
-        }
+        clienteRepository.findById(id)
+                .map(cliente -> {
+                    clienteRepository.delete(cliente);
+                    return cliente;
+                })
+                .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado."));
     }
 
     @PutMapping("/{id}")
-    public Cliente update(@PathVariable Long id,
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void update(@PathVariable Long id,
                           @RequestBody Cliente cliente){
-        return clienteRepository.findById(id)
+        clienteRepository.findById(id)
                 .map(clienteExistente -> {
                     cliente.setId(clienteExistente.getId());
                     clienteRepository.save(cliente);
                     return cliente;
-                }).orElseGet(() -> Cliente.builder().build());
+                }).orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cliente não encontrado."));
     }
 
     @GetMapping
