@@ -31,4 +31,13 @@ public class ClienteController {
     public Cliente save(@RequestBody Cliente cliente){
         return clienteRepository.save(cliente);
     }
+
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id){
+        Optional<Cliente> cliente = clienteRepository.findById(id);
+
+        if(cliente.isPresent()){
+            clienteRepository.delete(cliente.get());
+        }
+    }
 }
