@@ -1,6 +1,5 @@
 package br.com.silvasocram.vendas.rest.controller;
 
-import br.com.silvasocram.vendas.domain.entities.Cliente;
 import br.com.silvasocram.vendas.domain.entities.Produto;
 import br.com.silvasocram.vendas.domain.entities.repository.ProdutoRepository;
 import org.springframework.data.domain.Example;
@@ -39,7 +38,7 @@ public class ProdutoController {
                 .map(prod -> {
                     produto.setId(prod.getId());
                     produtoRepository.save(produto);
-                    return produto;
+                    return Void.TYPE;
                 })
                 .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto não encontrado."));
     }
@@ -50,7 +49,7 @@ public class ProdutoController {
         produtoRepository.findById(id)
                 .map(produto -> {
                     produtoRepository.delete(produto);
-                    return produto;
+                    return Void.TYPE;
                 })
                 .orElseThrow(()-> new ResponseStatusException(HttpStatus.NOT_FOUND, "Produto não encontrado."));
     }
