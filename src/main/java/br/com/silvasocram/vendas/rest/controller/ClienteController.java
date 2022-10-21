@@ -1,7 +1,7 @@
 package br.com.silvasocram.vendas.rest.controller;
 
 import br.com.silvasocram.vendas.domain.entities.Cliente;
-import br.com.silvasocram.vendas.domain.entities.repository.ClienteRepository;
+import br.com.silvasocram.vendas.domain.repository.ClienteRepository;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.http.HttpStatus;

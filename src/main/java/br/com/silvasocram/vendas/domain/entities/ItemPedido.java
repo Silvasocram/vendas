@@ -1,7 +1,16 @@
 package br.com.silvasocram.vendas.domain.entities;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 
+@Data
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "ITEM_PEDIDO")
 public class ItemPedido {
@@ -18,5 +27,8 @@ public class ItemPedido {
     @ManyToOne
     @JoinColumn(name = "PRODUTO_ID")
     private Produto produto;
+
+    @Column
+    private Long quantidade;
 
 }
