@@ -19,8 +19,15 @@ public class PedidoController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Long save(@RequestBody PedidoDTO pedidoDTO){
+    public Long save(@RequestBody PedidoDTO pedidoDTO) {
         final Pedido pedido = pedidoService.salvar(pedidoDTO);
         return pedido.getId();
+    }
+
+    @GetMapping("/devtools")
+    public String devtools(){
+        return "Rodando Devtools, desta forma não preciso parar e executar o projeto novamente " +
+                "em toda alteração, basta recompilar o projeto usando o COMMAND + F9. Mas para funcionar" +
+                "precisamos estar em modo debug.";
     }
 }
